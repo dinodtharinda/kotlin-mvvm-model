@@ -3,6 +3,7 @@ package edu.hardwork.mvvmmodel.viewmodel
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModel
+import edu.hardwork.mvvmmodel.data.repository.UserRepository
 import edu.hardwork.mvvmmodel.ui.auth.AuthListener
 
 class AuthViewModel : ViewModel() {
@@ -21,7 +22,9 @@ class AuthViewModel : ViewModel() {
             authListener?.onFailure("Invalid email or password")
             return
         }
-        authListener?.onSuccess()
+
+        val loginResponse = UserRepository().userLogin(email!!,password!!)
+        authListener?.onSuccess(loginResponse)
         Log.i("MY TAG", email!!)
         Log.i("MY TAG", password!!)
 
@@ -34,7 +37,7 @@ class AuthViewModel : ViewModel() {
             authListener?.onFailure("Invalid email or password")
             return
         }
-        authListener?.onSuccess()
+//        authListener?.onSuccess(loginResponse)
         Log.i("My TAG",name!!)
         Log.i("MY TAG", email!!)
         Log.i("MY TAG", password!!)
