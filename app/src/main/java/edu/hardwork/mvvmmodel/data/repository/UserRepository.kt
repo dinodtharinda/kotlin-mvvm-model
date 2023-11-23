@@ -14,14 +14,16 @@ class UserRepository {
         MyApi().userLogin(email, password).enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if(response.isSuccessful){
-                    loginResponse.value = response.body().toString()
+                    loginResponse.value = response.body()?.string()
+
+
 
                 }else{
 
-                    loginResponse.value = response.errorBody().toString()
+                    loginResponse.value = response.errorBody()?.string()
+
                 }
             }
-
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 loginResponse.value = t.message
             }

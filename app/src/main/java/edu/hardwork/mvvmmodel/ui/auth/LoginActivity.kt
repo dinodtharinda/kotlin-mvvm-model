@@ -12,6 +12,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import edu.hardwork.mvvmmodel.R
 import edu.hardwork.mvvmmodel.databinding.ActivityLoginBinding
+import edu.hardwork.mvvmmodel.utils.hide
+import edu.hardwork.mvvmmodel.utils.show
 import edu.hardwork.mvvmmodel.utils.toast
 import edu.hardwork.mvvmmodel.viewmodel.AuthViewModel
 import okhttp3.ResponseBody.Companion.toResponseBody
@@ -36,15 +38,15 @@ class LoginActivity : AppCompatActivity() ,AuthListener{
     }
 
     override fun onStarted() {
-        progresssBar?.visibility = View.VISIBLE
+        progresssBar?.show()
       toast("Login Started")
     }
 
     override fun onSuccess(loginResponse: LiveData<String>) {
 
         loginResponse.observe(this, Observer {
-            progresssBar?.visibility = View.INVISIBLE
-            toast("login ${it}")
+            progresssBar?.hide()
+            toast("login $it")
         })
     }
 
