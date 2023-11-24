@@ -5,6 +5,7 @@ import android.view.View
 import androidx.lifecycle.ViewModel
 import edu.hardwork.mvvmmodel.data.repository.UserRepository
 import edu.hardwork.mvvmmodel.ui.auth.AuthListener
+import edu.hardwork.mvvmmodel.utils.Coroutines
 
 class AuthViewModel : ViewModel() {
 
@@ -22,9 +23,16 @@ class AuthViewModel : ViewModel() {
             authListener?.onFailure("Invalid email or password")
             return
         }
+    Coroutines.main {
+        val response = UserRepository().userLogin(email!!,password!!)
+        if(response.isSuccessful){
+            response.body()?.user!!.token = response.body()?.token
+            authListener?.onSuccess(response.body()?.user!!)
+        }else{
+            authListener?.onFailure("Error Code: ${response.code()} ")
+        }
+    }
 
-        val loginResponse = UserRepository().userLogin(email!!,password!!)
-        authListener?.onSuccess(loginResponse)
         Log.i("MY TAG", email!!)
         Log.i("MY TAG", password!!)
 

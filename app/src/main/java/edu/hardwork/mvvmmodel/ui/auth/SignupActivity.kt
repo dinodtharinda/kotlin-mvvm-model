@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import edu.hardwork.mvvmmodel.R
+import edu.hardwork.mvvmmodel.data.db.entities.User
 import edu.hardwork.mvvmmodel.databinding.ActivitySignupBinding
 import edu.hardwork.mvvmmodel.utils.toast
 import edu.hardwork.mvvmmodel.viewmodel.AuthViewModel
@@ -25,7 +26,7 @@ class SignupActivity : AppCompatActivity(),AuthListener {
         toast("Started Sign Up")
     }
 
-    override fun onSuccess(loginResponse: LiveData<String>) {
+    override fun onSuccess(user:User) {
         toast("Success Sign UP")
     }
 

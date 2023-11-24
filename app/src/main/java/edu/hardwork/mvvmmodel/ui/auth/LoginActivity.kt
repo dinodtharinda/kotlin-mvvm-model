@@ -11,6 +11,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import edu.hardwork.mvvmmodel.R
+import edu.hardwork.mvvmmodel.data.db.entities.User
 import edu.hardwork.mvvmmodel.databinding.ActivityLoginBinding
 import edu.hardwork.mvvmmodel.utils.hide
 import edu.hardwork.mvvmmodel.utils.show
@@ -42,16 +43,14 @@ class LoginActivity : AppCompatActivity() ,AuthListener{
       toast("Login Started")
     }
 
-    override fun onSuccess(loginResponse: LiveData<String>) {
+    override fun onSuccess(user: User) {
 
-        loginResponse.observe(this, Observer {
-            progresssBar?.hide()
-            toast("login $it")
-        })
+       toast(user.token.toString())
+        progresssBar?.hide()
     }
 
     override fun onFailure(message: String) {
-        progresssBar?.visibility = View.INVISIBLE
+        progresssBar?.hide()
         toast("Error $message")
     }
 }
